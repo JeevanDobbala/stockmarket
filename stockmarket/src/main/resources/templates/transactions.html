@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Transaction History</title>
+
+<style>
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	background: #f4f6f9;
+}
+
+/* Navbar */
+.navbar {
+	background-color: #0d6efd;
+	padding: 15px;
+	text-align: center;
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+h2 {
+	text-align: center;
+	margin: 30px 0;
+}
+
+/* Table styling */
+table {
+    width: 85%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    background: linear-gradient(180deg, #ffffff, #f8f9fc);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Header */
+th {
+    background: linear-gradient(135deg, #212529, #343a40);
+    color: #ffffff;
+    padding: 14px;
+    text-align: center;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Cells */
+td {
+    padding: 14px;
+    text-align: center;
+    border-bottom: 1px solid #eaeaea;
+    font-size: 15px;
+    color: #333;
+}
+
+/* Alternate row colors */
+tr:nth-child(even) {
+    background-color: #f4f6fb;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Hover effect */
+tr:hover {
+    background: linear-gradient(90deg, #e9f2ff, #f8fbff);
+    transform: scale(1.01);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Last row border fix */
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Back link */
+a {
+	display: block;
+	margin: 25px auto;
+	width: fit-content;
+	text-decoration: none;
+	font-weight: bold;
+	color: #0d6efd;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+/* Status column (6th column) */
+table tr td:nth-child(6) {
+    font-weight: bold;
+}
+
+/* Loss */
+table tr td:nth-child(6)[data-value^="-"] {
+    color: red;
+}
+
+/* Profit */
+table tr td:nth-child(6):not([data-value^="-"]) {
+    color: green;
+}
+
+
+</style>
+
+</head>
+<body>
+
+	<div class="navbar">TradeX</div>
+
+	<h2>Transaction History</h2>
+
+	<table>
+		<tr>
+			<th>Date</th>
+			<th>Stock</th>
+			<th>Type</th>
+			<th>Quantity</th>
+			<th>Price</th>
+			<th>Status</th>
+		</tr>
+
+		<tr th:each="txn : ${transactions}">
+			<td th:text="${txn.transactionDate}"></td>
+			<td th:text="${txn.stock.stockName}"></td>
+			<td th:text="${txn.transactionType}"></td>
+			<td th:text="${txn.quantity}"></td>
+			<td th:text="${txn.price}"></td>
+			<td th:text="${txn.profitOrLoss}" th:attr="data-value=${txn.profitOrLoss}"></td>
+
+		</tr>
+	</table>
+
+	<a href="/dashboard">← Back to Dashboard</a>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Registration</title>
+    <style>
+        /* ---------- Reset & Base ---------- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f6fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* ---------- Form Card ---------- */
+        .card {
+            background-color: #fff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+            width: 350px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #1e90ff;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1e90ff;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0f76d1;
+        }
+
+        a {
+            display: block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #1e90ff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        
+         .navbar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1e90ff;
+            padding: 15px 20px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5em;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+       <div class="navbar">TradeX</div>
+    <div class="card">
+        <h2>User Registration</h2>
+        <form th:action="@{/register}" th:object="${user}" method="post">
+            <label>Name:</label>
+            <input type="text" th:field="*{name}" required />
+
+            <label>Email:</label>
+            <input type="email" th:field="*{email}" required />
+
+            <label>Password:</label>
+            <input type="password" th:field="*{password}" required />
+
+            <button type="submit">Register</button>
+        </form>
+
+        <a href="/login">Already have an account? Login</a>
+    </div>
+
+</body>
+</html>

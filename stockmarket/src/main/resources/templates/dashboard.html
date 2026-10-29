@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>User Dashboard</title>
+<style>
+body {
+	font-family: 'Segoe UI', sans-serif;
+	margin: 0;
+	background: #f1f2f6;
+	color: #2f3542;
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+	background: linear-gradient(135deg, #1e90ff, #3742fa);
+	color: white;
+	padding: 18px 25px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.welcome {
+	font-size: 1.3em;
+	font-weight: 600;
+}
+
+.navbar button {
+	background: #ff4757;
+	border: none;
+	padding: 8px 16px;
+	color: white;
+	border-radius: 20px;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+/* ---------- Cards ---------- */
+.card-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 20px;
+	padding: 25px;
+}
+
+.card {
+	padding: 25px;
+	border-radius: 15px;
+	text-align: center;
+	color: white;
+	font-size: 1.1em;
+	font-weight: bold;
+	text-decoration: none;
+	transition: transform 0.2s;
+}
+
+.card:hover {
+	transform: translateY(-6px);
+}
+
+.stocks {
+	background: #1e90ff;
+}
+
+.portfolio {
+	background: #2ed573;
+}
+
+.transactions {
+	background: #ffa502;
+}
+
+.wallet {
+	background: #5352ed;
+}
+
+/* ---------- Stats ---------- */
+.stats {
+	display: flex;
+	gap: 20px;
+	padding: 0 25px 25px;
+	flex-wrap: wrap;
+}
+
+.stat-card {
+	background: white;
+	padding: 20px;
+	border-radius: 15px;
+	flex: 1;
+	min-width: 200px;
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+	text-align: center;
+}
+
+.stat-card h3 {
+	color: #57606f;
+	margin-bottom: 8px;
+}
+
+.stat-card p {
+	font-size: 1.4em;
+	font-weight: bold;
+}
+
+/* ---------- Portfolio Table ---------- */
+h3 {
+	padding-left: 25px;
+}
+
+table {
+	width: calc(100% - 50px);
+	margin: 0 25px 30px;
+	border-collapse: collapse;
+	background: white;
+	border-radius: 15px;
+	overflow: hidden;
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+th {
+	background: #3742fa;
+	color: white;
+	padding: 14px;
+}
+
+td {
+	padding: 12px;
+	text-align: center;
+}
+
+tr:nth-child(even) {
+	background: #f1f2f6;
+}
+</style>
+</head>
+<body>
+
+	<!-- ---------- Navbar ---------- -->
+	<div class="navbar">
+		<div class="welcome">
+			👋 Welcome, <span th:text="${email}"></span>
+		</div>
+		<form th:action="@{/logout}" method="post">
+			<button type="submit">Logout</button>
+		</form>
+	</div>
+
+	<!-- ---------- Cards ---------- -->
+	<div class="card-container">
+		<a href="/stocks" class="card stocks">📈 View Stocks</a> <a
+			href="/portfolio" class="card portfolio">💼 My Portfolio</a> <a
+			href="/transactions" class="card transactions">🧾 Transactions</a> <a
+			href="/wallet/add" class="card wallet">💰 Add Money</a>
+	</div>
+
+	<!-- ---------- Stats ---------- -->
+	<div class="stats">
+		<div class="stat-card">
+			<h3>💳 Wallet Balance</h3>
+			<p>
+				₹ <span th:text="${walletBalance}"></span>
+			</p>
+		</div>
+		<div class="stat-card">
+			<h3>📊 Portfolio Value</h3>
+			<p>
+				₹ <span th:text="${totalPortfolioValue}"></span>
+			</p>
+		</div>
+		<div class="stat-card">
+			<h3>📉 Gain / Loss</h3>
+			<p>
+				₹ <span th:text="${totalGainLoss}"></span>
+			</p>
+		</div>
+	</div>
+
+	<!-- ---------- Portfolio Table ---------- -->
+	<h3>📌 Your Portfolio</h3>
+	<table>
+		<tr>
+			<th>Stock</th>
+			<th>Quantity</th>
+			<th>Current Price</th>
+			<th>Total Value</th>
+		</tr>
+		<tr th:each="p : ${portfolios}">
+			<td th:text="${p.stock.stockName}"></td>
+			<td th:text="${p.quantity}"></td>
+			<td th:text="${p.stock.currentPrice}"></td>
+			<td th:text="${p.totalValue}"></td>
+		</tr>
+
+	</table>
+
+</body>
+</html>
