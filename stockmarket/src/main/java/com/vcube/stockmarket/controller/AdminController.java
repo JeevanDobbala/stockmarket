@@ -25,21 +25,21 @@ public class AdminController {
     @GetMapping("/stocks")
     public String listStocks(Model model) {
         model.addAttribute("stocks", stockRepository.findAll());
-        return "admin/stocks";  // ✅ folder path added
+        return "admin/stocks"; 
     }
 
     //  Add new stock form
     @GetMapping("/stocks/new")
     public String newStockForm(Model model) {
         model.addAttribute("stock", new Stock());
-        return "admin/stock-form";  // ✅ folder path added
+        return "admin/stock-form";  
     }
 
     //  Save new stock
     @PostMapping("/stocks")
     public String saveStock(@ModelAttribute Stock stock) {
         stockRepository.save(stock);
-        return "redirect:/admin/stocks"; // ✅ redirect unchanged
+        return "redirect:/admin/stocks"; 
     }
 
     //  Edit existing stock form
@@ -47,7 +47,7 @@ public class AdminController {
     public String editStockForm(@PathVariable Long id, Model model) {
         Stock stock = stockRepository.findById(id).orElseThrow();
         model.addAttribute("stock", stock);
-        return "admin/stock-form";  // ✅ folder path added
+        return "admin/stock-form";  
     }
 
     // Update stock
@@ -60,7 +60,7 @@ public class AdminController {
         stock.setCurrentPrice(stockDetails.getCurrentPrice());
 
         stockRepository.save(stock);
-        return "redirect:/admin/stocks"; // ✅ redirect unchanged
+        return "redirect:/admin/stocks"; 
     }
     
  // Delete stock
