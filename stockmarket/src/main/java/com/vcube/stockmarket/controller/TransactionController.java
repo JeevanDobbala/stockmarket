@@ -37,7 +37,7 @@ public class TransactionController {
     @Autowired
     StockRepository stockRepo;
 
-    // ✅ Place this method here
+    
     @GetMapping("/transactions")
     public String viewTransactions(Authentication authentication, Model model) {
 
